@@ -1,7 +1,13 @@
 {
   "name": "aanyszek/g-re-captcha",
   "description": "Google reCaptcha v3",
-  "keywords": ["framework", "laravel", "reCaptcha", "laravel5"],
+  "keywords": [
+    "framework",
+    "laravel",
+    "reCaptcha",
+    "laravel5"
+  ],
+  "license": "MIT",
   "require": {
     "laravel/framework": "^5.6"
   },
