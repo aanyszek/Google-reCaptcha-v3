@@ -21,11 +21,17 @@ class GReCaptcha
 
         return new HtmlString("<script src='https://www.google.com/recaptcha/api.js?render=$reCaptchaSiteKey'></script>
                 <script>
-                    grecaptcha.ready(function () {
-                    grecaptcha.execute('$reCaptchaSiteKey', {action: 'contact_page'}).then(function (token) {
-                            $('.g-site-token').val(token);
+                    var grecaptcha_token; 
+                    function grecaptcha_reset(){
+                        grecaptcha.ready(function () {
+                            grecaptcha.execute('$reCaptchaSiteKey', {action: 'contact_page'}).then(function (token) {
+                                grecaptcha_token = token; 
+                                $('.g-site-token').val(token);
+                            });
                         });
-                    });
+                    }
+                    
+                    grecaptcha_reset(); 
                 </script>");
     }
 
