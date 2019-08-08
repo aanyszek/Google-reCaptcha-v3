@@ -46,6 +46,7 @@ class GoogleReCaptcha implements Rule
         $data     = json_decode($response, true);
 
         if (!isset($data["success"]) || $data["success"] == false) {
+            Log::warning('ReCaptcha fail: ', $data);
             $this->errorMessage = trans('g-re-captcha::captcha.fail');
             return false;
         }
@@ -54,6 +55,7 @@ class GoogleReCaptcha implements Rule
             return true;
         }
 
+        Log::warning('ReCaptcha negative: ', $data);
         $this->errorMessage = trans('g-re-captcha::captcha.negative');
         return false;
     }
