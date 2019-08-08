@@ -3,6 +3,7 @@
 namespace AAnyszek\GoogleReCaptcha\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Support\Facades\Log;
 
 class GoogleReCaptcha implements Rule
 {
