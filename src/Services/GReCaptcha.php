@@ -12,16 +12,12 @@ use Illuminate\Support\HtmlString;
 
 class GReCaptcha
 {
-
-    private $error = null;
-
     public function renderJS()
     {
         $reCaptchaSiteKey = config('g-re-captcha.site_key');
+        $refreshInterval  = config('g-re-captcha.refresh_interval');
 
-        return new HtmlString("<script src='https://www.google.com/recaptcha/api.js?render=$reCaptchaSiteKey'></script>
-                <script>
-                    var grecaptcha_token; 
+        $js = "     var grecaptcha_token; 
                     function grecaptcha_reset(){
                         grecaptcha.ready(function () {
                             grecaptcha.execute('$reCaptchaSiteKey', {action: 'contact_page'}).then(function (token) {
@@ -31,7 +27,17 @@ class GReCaptcha
                         });
                     }
                     
-                    grecaptcha_reset(); 
+                    grecaptcha_reset(); ";
+
+        if ($refreshInterval) {
+            $js .= "    setInterval(function() {
+                        grecaptcha_reset(); 
+                        }, $refreshInterval); ";
+        }
+
+        return new HtmlString("<script src='https://www.google.com/recaptcha/api.js?render=$reCaptchaSiteKey'></script>
+                <script>
+                    $js  
                 </script>");
     }
 
